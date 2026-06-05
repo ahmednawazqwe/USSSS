@@ -1279,31 +1279,37 @@ button, input {
 .floating-heart-page {
   position: fixed;
   bottom: 20vh;
-  left: 180px;
   z-index: 12;
-  font-size: 20px;
+  font-size: var(--heart-size, 20px);
   color: var(--heart-color);
   pointer-events: none;
   user-select: none;
-  animation: floatUpHearts 3s ease-in forwards;
-  animation-delay: var(--heart-delay);
-  opacity: 0.8;
+  animation: floatUpHearts var(--heart-duration, 3s) ease-out forwards;
+  animation-delay: var(--heart-delay, 0ms);
+  opacity: 0.85;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
 }
 
 @keyframes floatUpHearts {
   0% {
-    opacity: 0.8;
-    transform: translateY(0) translateX(0) scale(0.5);
+    opacity: 0.85;
+    transform: translateY(0) translateX(0) scale(0.3) rotate(0deg);
   }
-  25% {
+  20% {
     opacity: 0.9;
   }
   50% {
-    opacity: 0.7;
+    opacity: 0.8;
+    transform: translateY(-60px) translateX(calc(var(--heart-x-drift, 0px) * 0.5)) scale(0.8) rotate(15deg);
+  }
+  80% {
+    opacity: 0.4;
+    transform: translateY(-150px) translateX(var(--heart-x-drift, 0px)) scale(1) rotate(45deg);
   }
   100% {
     opacity: 0;
-    transform: translateY(-120px) translateX(60px) scale(1.2);
+    transform: translateY(-280px) translateX(calc(var(--heart-x-drift, 0px) * 1.5)) scale(1.1) rotate(90deg);
   }
 }
 
