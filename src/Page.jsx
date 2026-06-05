@@ -95,12 +95,16 @@ function FloatingHeartsEmitter({ phase, trigger }) {
   const [hearts, setHearts] = useState([]);
 
   const emitHearts = () => {
-    const newHearts = Array.from({ length: 8 }).map((_, i) => ({
+    const newHearts = Array.from({ length: 25 }).map((_, i) => ({
       id: Date.now() + i,
-      delay: i * 80,
+      delay: i * 40,
+      left: Math.random() * 30 - 15, // Random left offset -15% to +15%
+      duration: 3 + Math.random() * 2, // Random duration 3-5s
+      size: 12 + Math.random() * 16, // Random size 12-28px
+      xDrift: Math.random() * 200 - 100, // Random horizontal drift
     }));
     setHearts(newHearts);
-    setTimeout(() => setHearts([]), 3000);
+    setTimeout(() => setHearts([]), 6000);
   };
 
   // Emit hearts when trigger changes or when page loads
@@ -117,6 +121,10 @@ function FloatingHeartsEmitter({ phase, trigger }) {
           style={{
             '--heart-color': phase.heartColor,
             '--heart-delay': `${heart.delay}ms`,
+            '--heart-duration': `${heart.duration}s`,
+            '--heart-size': `${heart.size}px`,
+            '--heart-x-drift': `${heart.xDrift}px`,
+            left: `calc(180px + ${heart.left}%)`,
           }}
         >
           ♥
